@@ -1,4 +1,4 @@
-from configparser import ConfigParser
+from configparser import RawConfigParser
 import argparse
 
 def get_args():
