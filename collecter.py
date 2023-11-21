@@ -7,6 +7,7 @@ config_path = args.config
 host, port, username, password = get_config(config_path)
 
 def metics():
+    clear_metrics()
     Storage = OceanStor(host=host, port=port, username=username, password=password, timeout=10)
     Storage.login()
     cpu = Storage.get_cpu()
