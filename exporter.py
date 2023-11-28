@@ -13,6 +13,7 @@ def index():
 
 @app.route('/metrics')
 def get_metrics():
+    clear_metrics()
     metics()
     return Response(prometheus_client.generate_latest(REGISTRY),mimetype="text/plain")
 
