@@ -79,6 +79,15 @@ class OceanStor(object):
         data = response.json()
         return data
 
+    def get_allfsquota(self,parentID):
+        try:
+            url = f"https://{self.host}:{self.port}/deviceManager/rest/{self.deviceID}/S3_StoragePolicy?parentID="+f"{parentID}"
+            response = self.session.get(url)
+        except HTTPError as err:
+            print(err)
+        data = response.json()
+        return data
+
     def get_fsquota(self,fsquota_id = ''):
         try:
             response = self.session.get(self.url + '/' + self.deviceID + '/fsquota' + fsquota_id)
