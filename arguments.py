@@ -1,5 +1,5 @@
 from configparser import RawConfigParser
-import argparse
+import argparse,json
 
 def get_args():
     parser = argparse.ArgumentParser(description='OceanStore 9000 options!')
@@ -11,8 +11,10 @@ def get_args():
 def get_config(config_path):
     config = ConfigParser()
     config.read(config_path,encoding='UTF8')
-    host = config.get('default',"host")
-    port = config.get('default', "port")
-    username = config.get('default', "username")
-    password = config.get('default', "password")
-    return host, port, username, password
+    hw_host = config.get('default',"host")
+    hw_port = config.get('default', "port")
+    hw_username = config.get('default', "username")
+    hw_password = config.get('default', "password")
+    hw_parid_list = config.get('default', "parentID_list")
+    parentID_list = json.loads(hw_parid_list)
+    return host, port, username, password, parentID_list
