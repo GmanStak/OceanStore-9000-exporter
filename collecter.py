@@ -4,7 +4,7 @@ from arguments import get_config,get_args
 
 args = get_args()
 config_path = args.config
-host, port, username, password = get_config(config_path)
+host, port, username, password, parentID_list = get_config(config_path)
 
 def metics():
     clear_metrics()
@@ -144,5 +144,10 @@ def metics():
             float(amountUsed))
         hw_fsquota_adviseLimit.labels(id=fsquota['id'], parentID=fsquota['parentID'], treeName=fsquota['treeName']).set(
             float(adviseLimit))
+    for parentID in parentID_list:
+        account_info = Storage.get_allfsquota(parentID)
+        for account in account_info['data']:
+            quotaCapacity = account['quotaCapacity']
+            hw_account_quotaCapacity.labels(id=account['parentID']).set(quotaCapacity)
 
     Storage.logout()
